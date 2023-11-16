@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-gpt',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GptComponent implements OnInit {
 
-  constructor() { }
+  queryFormGroup !: FormGroup
+
+  constructor(private fb : FormBuilder) { }
 
   ngOnInit(): void {
+
+    this.queryFormGroup = this.fb.group({
+      query : this.fb.control("")
+    })
+
   }
 
+  handleAskGPT() {
+
+  }
 }

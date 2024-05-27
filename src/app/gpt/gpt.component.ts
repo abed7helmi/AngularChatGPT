@@ -26,7 +26,7 @@ export class GptComponent implements OnInit {
 
   handleAskGPT() {
     let url = "https://api.openai.com/v1/chat/completions " ;
-    let httpHeaders = new HttpHeaders().set("Authorization","Bearer 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")
+    let httpHeaders = new HttpHeaders().set("Authorization","Bearer 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")
 
     this.messages.push({
       role: "user" , content: this.queryFormGroup.value.query
@@ -38,7 +38,13 @@ export class GptComponent implements OnInit {
     }
     this.httpClient.post(url,payload,{headers:httpHeaders}).subscribe({
       next : (resp) =>{
-        this.result = resp
+        this.result = resp;
+        this.result.choices.forEach((choice : any) => {
+          this.messages.push({
+            role : "assistant", content : choice.message.content
+          })
+        })
+
       },
       error : (err)=>{
         this.result = err
